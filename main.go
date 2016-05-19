@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"flag"
 	"github.com/claudebot/hippie/lambda"
+	_ "github.com/claudebot/hippie/scripts/excuses"
 	_ "github.com/claudebot/hippie/scripts/giphy"
 	_ "github.com/claudebot/hippie/scripts/ping"
 	"github.com/tbruyelle/hipchat-go/hipchat"
