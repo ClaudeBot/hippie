@@ -3,10 +3,8 @@ package giphy
 import (
 	"encoding/json"
 	"github.com/claudebot/hippie/lambda"
-	"math/rand"
 	"net/http"
 	"net/url"
-	"time"
 )
 
 const (
@@ -26,26 +24,6 @@ type DefaultData struct {
 			URL string `json:"url"`
 		} `json:"original"`
 	} `json:"images"`
-}
-
-type Search struct {
-	Data []DefaultData `json:"data"`
-}
-
-type Translate struct {
-	Data DefaultData `json:"data"`
-}
-
-type RandomData struct {
-	ID               string `json:"id"`
-	URL              string `json:"url"`
-	ImageOriginalURL string `json:"image_original_url"`
-	ImageURL         string `json:"image_url"`
-	ImageMP4URL      string `json:"image_mp4_url"`
-}
-
-type Random struct {
-	Data RandomData `json:"data"`
 }
 
 func giphyRequest(e string, p url.Values, v interface{}) (*http.Response, error) {
@@ -87,53 +65,4 @@ func init() {
 	lambda.Register("(?i)^/giphy (.+)$", &Search{})
 	lambda.Register("(?i)^/translate (.+)$", &Translate{})
 	lambda.Register("(?i)^/random (.+)$", &Random{})
-}
-
-func (s *Search) ImageURL() string {
-	rand.Seed(time.Now().Unix())
-	return s.Data[rand.Intn(len(s.Data))].Images.Original.URL
-}
-
-func (s *Search) Run(m []string) (string, error) {
-	query := m[1]
-	p := url.Values{}
-	p.Set("q", query)
-	_, err := giphyRequest("search", p, s)
-	if err != nil {
-		return "", err
-	}
-
-	return s.ImageURL(), nil
-}
-
-func (t *Translate) ImageURL() string {
-	return t.Data.Images.Original.URL
-}
-
-func (t *Translate) Run(m []string) (string, error) {
-	query := m[1]
-	p := url.Values{}
-	p.Set("s", query)
-	_, err := giphyRequest("translate", p, t)
-	if err != nil {
-		return "", err
-	}
-
-	return t.ImageURL(), nil
-}
-
-func (r *Random) ImageURL() string {
-	return r.Data.ImageURL
-}
-
-func (r *Random) Run(m []string) (string, error) {
-	query := m[1]
-	p := url.Values{}
-	p.Set("tag", query)
-	_, err := giphyRequest("random", p, r)
-	if err != nil {
-		return "", err
-	}
-
-	return r.ImageURL(), nil
 }
