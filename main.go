@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"flag"
 	"github.com/claudebot/hippie/lambda"
+	_ "github.com/claudebot/hippie/scripts/giphy"
 	_ "github.com/claudebot/hippie/scripts/ping"
 	"github.com/tbruyelle/hipchat-go/hipchat"
 	"log"
@@ -67,15 +68,19 @@ func init() {
 	// TODO: this could probably be 'handled' a lot better ...
 	client = hipchat.NewClient(*botToken)
 
-	u, err := url.Parse(*botURL)
-	u.Path += "webhook"
-
+	base, err := url.Parse(*botURL)
 	if err != nil {
 		log.Fatalln(err)
 	}
 
-	err = webhookRegister(*botRoom, *botKey, u)
+	main, err := url.Parse("webhook")
 	if err != nil {
+		log.Fatalln(err)
+	}
+
+	u := base.ResolveReference(main)
+
+	if err := webhookRegister(*botRoom, *botKey, u); err != nil {
 		log.Fatalln(err)
 	}
 }
