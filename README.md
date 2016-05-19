@@ -1,6 +1,6 @@
 # hippie
 
-A simple, but extensible webhooks-based [HipChat][hipchat] bot.
+A simple, but extensible webhooks-based [HipChat][hipchat] bot written in [Golang][golang].
 
 
 ## Usage
@@ -28,11 +28,12 @@ By default, it is shipped with a few basic scripts; including support for the in
 
 The bot's design was inspired by the following packages / projects:
 
+- https://github.com/github/hubot
 - https://golang.org/pkg/database/sql/
 - https://github.com/apex/apex/
 - https://github.com/poptip/buster
 
-`hippie` HipChat ChatOps implementation is arguably more effective, and reliable than that of [`lucille`][lucille], and its [Golang][golang] counterpart, [`buster`][buster]. It relies on webhooks rather than interval-based long-polling of the chat history endpoint. As such, it is able to respond to messages a lot quicker without expending unnecessary resources.
+`hippie` HipChat ChatOps implementation is arguably more effective, and reliable than that of [`lucille`][lucille], and its Golang counterpart, [`buster`][buster]. It relies on webhooks rather than interval-based long-polling of the chat history endpoint. As such, it is able to respond to messages a lot quicker without expending unnecessary resources.
 
 
 [hipchat]: https://www.hipchat.com/
