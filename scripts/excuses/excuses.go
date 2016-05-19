@@ -5,6 +5,6 @@ import (
 )
 
 func init() {
-	lambda.Register("(?i)^/excuse$", &ProgrammingExcuse{})
-	lambda.Register("(?i)^/dev-excuse$", &DeveloperExcuse{})
+	lambda.Register("(?i)^/excuse$", &ProgrammingExcuses{})
+	lambda.Register("(?i)^/dev-excuse$", &DeveloperExcuses{})
 }

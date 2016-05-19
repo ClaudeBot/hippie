@@ -90,8 +90,8 @@ func init() {
 func main() {
 	http.HandleFunc("/webhook", webhookHandler)
 	log.Printf("running hippie on port %d ...\n", *botPort)
-	err := http.ListenAndServe(":"+strconv.Itoa(*botPort), nil)
-	if err != nil {
+
+	if err := http.ListenAndServe(":"+strconv.Itoa(*botPort), nil); err != nil {
 		panic(err)
 	}
 }

@@ -8,14 +8,13 @@ const (
 	pExcusesAPI = "http://programmingexcuses.com/"
 )
 
-type ProgrammingExcuse struct{}
+type ProgrammingExcuses struct{}
 
-func (p *ProgrammingExcuse) Run(m []string) (string, error) {
+func (p *ProgrammingExcuses) Run(m []string) (string, error) {
 	doc, err := goquery.NewDocument(pExcusesAPI)
 	if err != nil {
 		return "", err
 	}
 
-	excuse := doc.Find(".wrapper a").First().Text()
-	return excuse, nil
+	return doc.Find(".wrapper a").First().Text(), nil
 }

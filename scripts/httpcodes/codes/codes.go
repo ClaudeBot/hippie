@@ -37,8 +37,7 @@ func All() Codes {
 	}
 
 	var codes Codes
-	err = json.Unmarshal(b, &codes)
-	if err != nil {
+	if err := json.Unmarshal(b, &codes); err != nil {
 		panic(err)
 	}
 

@@ -23,5 +23,6 @@ func (h *HTTPCodes) Run(m []string) (string, error) {
 		return "", fmt.Errorf("HTTP status code could not be found: %s", code)
 	}
 
+	// TODO: update codes, and handle cases where `Ietf` is undefined
 	return fmt.Sprintf("%s (%s)", v.Descriptions.Ietf.Body, v.Descriptions.Ietf.Link), nil
 }
