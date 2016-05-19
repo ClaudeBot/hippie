@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/tbruyelle/hipchat-go/hipchat"
+	"github.com/claudebot/hipchat-go/hipchat"
 	"net/url"
 	"strings"
 )
@@ -43,8 +43,7 @@ func webhookGC(rid int, k string) error {
 	}
 
 	for _, webhook := range webhooks.Webhooks {
-		// TODO: replace `Name` with `Key` in the future
-		if strings.EqualFold(webhook.Name, k) {
+		if strings.EqualFold(webhook.Key, k) {
 			if _, err := client.Room.DeleteWebhook(rid, webhook.ID); err != nil {
 				return err
 			}
@@ -71,7 +70,8 @@ func webhookRegister(rn string, k string, u *url.URL) error {
 	}
 
 	req := hipchat.CreateWebhookRequest{
-		Name:  k,
+		Name:  "Hippie Bot",
+		Key:   k,
 		Event: "room_message",
 		URL:   u.String(),
 	}
