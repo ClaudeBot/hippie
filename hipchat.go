@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"github.com/claudebot/hipchat-go/hipchat"
+	"github.com/tbruyelle/hipchat-go/hipchat"
 	"net/url"
 	"strings"
 )
