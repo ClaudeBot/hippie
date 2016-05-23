@@ -8,7 +8,10 @@ import (
 	"log"
 	"net/http"
 	"net/url"
+	"os"
+	"os/signal"
 	"strconv"
+	"syscall"
 )
 
 var (
@@ -81,6 +84,19 @@ func init() {
 	if err := webhookRegister(*botRoom, *botKey, u); err != nil {
 		log.Fatalln(err)
 	}
+
+	c := make(chan os.Signal, 1)
+	signal.Notify(c, os.Interrupt)
+	signal.Notify(c, syscall.SIGTERM)
+	go func() {
+		<-c
+		log.Printf("shutting hippie down: '%d', '%d', '%s'\n", roomID, webhookID, *botKey)
+		err := webhookGC(roomID, *botKey)
+		if err != nil {
+			log.Fatalln(err)
+		}
+		os.Exit(1)
+	}()
 }
 
 func main() {
