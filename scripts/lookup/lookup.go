@@ -12,8 +12,8 @@ type HostLookup struct{}
 // type IPLookup struct{}
 
 func init() {
-	lambda.Register("(?i)^/lookup ((?:[0-9]{1,3}.){3}[0-9]{1,3})$", &ReverseLookup{})
-	lambda.Register("(?i)^/lookup-host (.+)$", &HostLookup{})
+	lambda.Register("(?i)^/rlookup ((?:[0-9]{1,3}.){3}[0-9]{1,3})$", &ReverseLookup{})
+	lambda.Register("(?i)^/lookup (.+)$", &HostLookup{})
 	// lambda.Register("(?i)^/lookup-ip (.+)$", &IPLookup{})
 }
 
